@@ -57,7 +57,27 @@ function DoublyLinkedList(){
     this.removeAt=function(position){
         //look for out - of - bounds values
         if(position>-1 && position<length){
-            
+            let current=head,
+            previous,
+            index=0;
+
+            //removing first item
+            if(position===0){
+                head=current.next;
+
+                //if there is only on item, update tail
+                if(length===1){
+                    tail=null;
+                }else{
+                    head.prev=null;
+                }
+            }else if(position===length-1){
+                current=tail;
+                tail=current.prev;
+                tail.next=null;
+            }else{
+                
+            }
         }
     };
     
