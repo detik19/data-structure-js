@@ -10,6 +10,8 @@ function DoublyLinkedList(){
     let head=null;
     let tail=null;
 
+    this.append=function(element){};
+
     this.insert=function(position, element){
         //check for out-of-bounds values
         if(position>=0 && position<=length){
@@ -76,11 +78,23 @@ function DoublyLinkedList(){
                 tail=current.prev;
                 tail.next=null;
             }else{
-                
+                while(index++<position){
+                    previous=current;
+                    current=current.next;    
+                }
+                previous.next=current.next;
+                current.next.prev=previous;
+
             }
+            length--;
+            return current.element;
+        }else{
+            return null;
         }
     };
-    
+    this.remove=function(element){};
+
+    this.indexOf=function(element){};
     /**
      * This returns true if the linked list does not contain 
      * any elements and false if the size of the linked list is bigger 
@@ -92,9 +106,16 @@ function DoublyLinkedList(){
      * to the length property of the array.
      */
     this.size=function(){};
-    /**
-     * As the list uses a Node class as an item, we need to overwrite the
-     * default toString method inherited from the JavaScript object to output only the
-     * element values.
-     */
+
+    this.toString=function(){};
+    this.inverseToString=function(){};
+    this.print=function(){};
+    this.printInverse=function(){};
+    this.getHead=function(){
+        return head;
+    };
+
+    this.getTail=function(){
+        return tail;
+    };
 }
