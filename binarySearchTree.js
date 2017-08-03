@@ -37,17 +37,35 @@ function BinarySearchTree(){
         return root;
     };
     this.search=function(key){};
-    this.inOrderTrnverse=function(){};
+
     let inOrderTraverseNode=function(node,callback){
         if(node!==null){
+            //console.log(node.key);
             inOrderTraverseNode(node.left, callback);
             callback(node.key);
+            
             inOrderTraverseNode(node.right, callback);
         }
     };
-    this.preOrderTransverse=function(){};
-    this.postOrderTransverse=function(){};
+    this.inOrderTraverse=function(callback){
+        inOrderTraverseNode(root, callback);
+    };
+
+    let preOrderTraverseNode=function(node, callback){
+        if(node!==null){
+            callback(node.key);
+            preOrderTraverseNode(node.left, callback);
+            preOrderTraverseNode(node.right, callback);
+        }
+    }
+    this.preOrderTransverse=function(callback){
+        preOrderTraverseNode(root,callback);
+    };
+
+    this.postOrderTraverse=function(){};
     this.min=function(){};
     this.max=function(){};
     this.remove=function(key){};
 };
+
+module.exports=BinarySearchTree;
