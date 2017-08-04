@@ -3,9 +3,9 @@
 var BinarySearchTree= require('./binarySearchTree');
 
 describe('Test insert',function () {
-    it('test insert',function (done) {
-        this.timeout(10000);
-        let tree=new BinarySearchTree();
+    let tree=new BinarySearchTree();
+    beforeEach(function(done){
+        console.log('beforeEach');
         tree.insert(7);
         tree.insert(15);
         tree.insert(5);
@@ -19,6 +19,11 @@ describe('Test insert',function () {
         tree.insert(20);
         tree.insert(18);
         tree.insert(25);
+        done();
+    });
+    it('test insert',function (done) {
+        this.timeout(10000);
+        
         console.log('********* in-order transverse ***********');
         function printNode(value){
             console.log(value);

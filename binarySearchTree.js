@@ -36,7 +36,21 @@ function BinarySearchTree(){
     this.getRoot=function(){
         return root;
     };
-    this.search=function(key){};
+    let searchNode=function(node, key){
+        if(node===null){
+            return false;
+        }
+        if(key<node.key){
+            return searchNode(node.left, key);
+        }else if(key>node.key){
+            return searchNode(node.left, key);
+        }else{
+            return true;
+        }
+    };
+    this.search=function(key){
+        return searchNode(root, key);
+    };
 
     let inOrderTraverseNode=function(node,callback){
         if(node!==null){
@@ -58,14 +72,84 @@ function BinarySearchTree(){
             preOrderTraverseNode(node.right, callback);
         }
     }
-    this.preOrderTransverse=function(callback){
+    this.preOrderTraverse=function(callback){
         preOrderTraverseNode(root,callback);
     };
 
-    this.postOrderTraverse=function(){};
-    this.min=function(){};
-    this.max=function(){};
-    this.remove=function(key){};
+    let postOrderTraverseNode=function(node, callback){
+        if(node!==null){
+            postOrderTraverseNode(node.left, callback);
+            postOrderTraverseNode(node.right, callback);
+            callback(node.key);
+        }
+    };
+    this.postOrderTraverse=function(callback){
+        postOrderTraverseNode(root, callback);
+    };
+
+    let minNode=function(node){
+        if(node){
+            while(node&&node.left!==null){
+                node=node.left;
+            }
+        }
+    };
+    this.min=function(){
+        return minNode(root);
+    };
+
+    let maxNode=function(node){
+        if(node){
+            while(node && node.right!==null){
+                node=node.right;
+            }
+            return node.right;
+        }
+        return null;
+    };
+    this.max=function(){
+        return maxNode(root);
+    };
+    let findMinNode=function(node){
+        while(node && node.left!==null){
+            node=node.left;
+        }
+        return node;
+    };
+    let removeNode=function(node, key){
+        if(node===null){
+            return null;
+        }
+        if(key<node.key){
+            node.left=removeNode(node.left,key);
+            return node;
+        }else if(key>node.key){
+            node.right=removeNode(node.right,key);
+            return node;
+        }else{
+            //case 1-a leaf node
+            if(node.left===null && node.right===null){
+                node=null;
+                return node;
+            }
+            //case 2 - a node with only 1 child
+            if(node.left===null){
+                node=node.right;
+                return node;
+            }else if(node.right===null){
+                node=node.left;
+                return node;
+            }
+
+            let aux=findMinNode(node.right);
+            node.key=aux.key;
+            node.right=removeNode(node.right, aux.key);
+            return node;
+        }
+    };
+    this.remove=function(element){
+        root=removeNode(root, element);
+    };
 };
 
 module.exports=BinarySearchTree;
